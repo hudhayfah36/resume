@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huzaif ur Rehman Aamir | AI Research Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2a2d43;
+            --secondary: #3c6e71;
+            --accent: #70ae6e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --code-bg: #1e1e2e;
+            --terminal-green: #4af626;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1c2f 100%);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--accent);
+            margin-bottom: 1.5rem;
+            background-color: #2a2d43;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent);
+        }
+        
+        .profile-img i {
+            margin-top: 10px;
+        }
+        
+        .name {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            color: var(--terminal-green);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .description {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .linkedin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #0077b5;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .linkedin-btn:hover {
+            background-color: #005582;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .terminal-code {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--terminal-green);
+            overflow: hidden;
+        }
+        
+        .blinking-cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--accent);
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .skill-category {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-category h3 {
+            color: var(--secondary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-item {
+            background-color: #e9ecef;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .skill-item:hover {
+            background-color: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Certifications Section */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .cert-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .cert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .cert-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .cert-issuer {
+            color: var(--secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cert-date {
+            font-size: 0.85rem;
+            color: #6c757d;
+            background-color: #f8f9fa;
+            padding: 3px 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .cert-id {
+            font-size: 0.8rem;
+            color: #adb5bd;
+            margin-top: 0.5rem;
+            font-family: monospace;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-item i {
+            color: var(--accent);
+        }
+        
+        .github-link {
+            color: var(--terminal-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .github-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2.2rem;
+            }
+            
+            .title {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .name {
+                font-size: 1.8rem;
+            }
+            
+            header {
+                padding: 3rem 0;
+            }
+            
+            .profile-img {
+                width: 140px;
+                height: 140px;
+                font-size: 3rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        /* Code-like decorations */
+        .code-line {
+            position: absolute;
+            font-family: monospace;
+            color: rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+            z-index: 1;
+        }
+        
+        .brace {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .string {
+            color: #ce9178;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="profile-img">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h1 class="name">Huzaif ur Rehman Aamir</h1>
+                <div class="title">AI Research Assistant | Deep Learning & Computer Vision</div>
+                <p class="description">
+                    I am a research assistant at ibvis.com working on deep learning algorithms for computer vision and creating AI architectures for edge devices. I have extensive experience in web development, including JavaScript, React, and Tailwind CSS.
+                </p>
+                <a href="https://www.linkedin.com/in/huzaif-ur-rehman-aamir-a935b3187/" class="linkedin-btn" target="_blank">
+                    <i class="fab fa-linkedin"></i> Connect on LinkedIn
+                </a>
+            </div>
+        </div>
+        
+        <!-- Terminal-like element -->
+        <div class="terminal-code">
+            <span class="keyword">print</span>(<span class="string">"Hello, World! I'm Huzaif, an AI enthusiast."</span>)<span class="blinking-cursor">_</span>
+        </div>
+        
+        <!-- Background code decorations -->
+        <div class="code-line" style="top: 20%; left: 5%;">import torch</div>
+        <div class="code-line" style="top: 30%; right: 10%;">model = NeuralNetwork()</div>
+        <div class="code-line" style="bottom: 40%; left: 15%;">def train_model():</div>
+        <div class="code-line" style="bottom: 30%; right: 20%;">return accuracy</div>
+    </header>
+    
+    <main class="container">
+        <!-- Skills Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-code"></i> Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Deep Learning & AI</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">PyTorch</div>
+                        <div class="skill-item">TensorFlow</div>
+                        <div class="skill-item">Keras</div>
+                        <div class="skill-item">scikit-learn</div>
+                        <div class="skill-item">ONNX</div>
+                        <div class="skill-item">Model Quantization</div>
+                        <div class="skill-item">Computer Vision</div>
+                        <div class="skill-item">Object Detection</div>
+                        <div class="skill-item">Trackers</div>
+                        <div class="skill-item">OCR</div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Web Development</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">JavaScript</div>
+                        <div class="skill-item">React.js</div>
+                        <div class="skill-item">Tailwind CSS</div>
+                        <div class="skill-item">HTML/CSS</div>
+                        <div class="skill-item">Back-End Development</div>
+                        <div class="skill-item">Databases</div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Tools & Technologies</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">Docker</div>
+                        <div class="skill-item">Git</div>
+                        <div class="skill-item">PostgreSQL</div>
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">Version Control</div>
+                        <div class="skill-item">Cybersecurity</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Certifications Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-certificate"></i> Licenses & Certifications</h2>
+            <div class="certifications-grid">
+                <!-- Data Science & Analytics -->
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div>
+                            <div class="cert-title">Data Science & Analytics</div>
+                            <div class="cert-issuer">HP LIFE</div>
+                        </div>
+                        <div class="cert-date">Sep 2024</div>
+                    </div>
+                    <div class="cert-id">Credential ID: c593d0Bd-8c56-486Fb733-c0e6357a495f</div>
+                </div>
+                
+                <!-- Introduction to Cybersecurity Awareness -->
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div>
+                            <div class="cert-title">Introduction to Cybersecurity Awareness</div>
+                            <div class="cert-issuer">HP LIFE</div>
+                        </div>
+                        <div class="cert-date">Sep 2024</div>
+                    </div>
+                    <div class="cert-id">Credential ID: 267f83fc-e0e1-47cb-95bd-d2ce819e5d62</div>
+                </div>
+                
+                <!-- Introduction to Databases for Back-End Development -->
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div>
+                            <div class="cert-title">Introduction to Databases for Back-End Development</div>
+                            <div class="cert-issuer">Meta</div>
+                        </div>
+                        <div class="cert-date">Mar 2024</div>
+                    </div>
+                    <div class="cert-id">Credential ID: CJRCCHXMOH5C</div>
+                </div>
+                
+                <!-- Version Control -->
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div>
+                            <div class="cert-title">Version Control</div>
+                            <div class="cert-issuer">Meta</div>
+                        </div>
+                        <div class="cert-date">Jul 2023</div>
+                    </div>
+                    <div class="cert-id">Credential ID: E2R8V8XSX2MV</div>
+                </div>
+                
+                <!-- Programming in Python -->
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div>
+                            <div class="cert-title">Programming in Python</div>
+                            <div class="cert-issuer">Meta</div>
+                        </div>
+                        <div class="cert-date">Mar 2023</div>
+                    </div>
+                    <div class="cert-id">Credential ID: XXVT6FPA96N3</div>
+                </div>
+                
+                <!-- Introduction to Back-End Development -->
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div>
+                            <div class="cert-title">Introduction to Back-End Development</div>
+                            <div class="cert-issuer">Meta</div>
+                        </div>
+                        <div class="cert-date">Jan 2023</div>
+                    </div>
+                    <div class="cert-id">Credential ID: 6LJ7ZM8AAMMZ</div>
+                </div>
+                
+                <!-- Python Course -->
+                <div class="cert-card">
+                    <div class="cert-header">
+                        <div>
+                            <div class="cert-title">Python Course</div>
+                            <div class="cert-issuer">Professional Freelancing Training Program</div>
+                        </div>
+                        <div class="cert-date">Oct 2022</div>
+                    </div>
+                    <div class="cert-id">Credential ID: B719865</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Experience Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> Professional Experience</h2>
+            <div class="cert-card" style="border-left: 5px solid var(--accent);">
+                <div class="cert-header">
+                    <div>
+                        <div class="cert-title">Research Assistant</div>
+                        <div class="cert-issuer">ibvis.com</div>
+                    </div>
+                    <div class="cert-date">Present</div>
+                </div>
+                <p style="margin-top: 1rem;">
+                    • Working on deep learning algorithms for computer vision applications<br>
+                    • Designing and implementing AI architectures optimized for edge devices<br>
+                    • Implementing model quantization techniques for efficient deployment<br>
+                    • Developing object tracking and OCR systems<br>
+                    • Containerizing applications using Docker for scalable deployment
+                </p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>Connect with me</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-globe"></i>
+                            <span>Portfolio hosted on <a href="#" class="github-link">GitHub Pages</a></span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub: <a href="#" class="github-link">huzaif-aamir</a></span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn: <a href="https://www.linkedin.com/in/huzaif-ur-rehman-aamir-a935b3187/" class="github-link" target="_blank">huzaif-ur-rehman-aamir</a></span>
+                        </div>
+                    </div>
+                </div>
+                <p style="opacity: 0.8; max-width: 600px; margin-top: 1rem;">
+                    This resume is built with HTML, CSS, and JavaScript. Feel free to reach out for collaboration on AI, computer vision, or web development projects.
+                </p>
+                <div class="terminal-code" style="position: relative; background-color: rgba(0, 0, 0, 0.2); width: 100%; max-width: 500px; border-radius: 5px;">
+                    <span class="keyword">print</span>(<span class="string">"Thanks for visiting! Let's build something amazing."</span>)<span class="blinking-cursor">_</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Terminal-like text animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const terminalTexts = [
+                "print(\"Hello, World! I'm Huzaif, an AI enthusiast.\")",
+                "model = NeuralNetwork(arch='vision-transformer')",
+                "accuracy = train_model(data, epochs=100)",
+                "docker build -t edge-ai-app .",
+                "quantized_model = quantize(model, precision='int8')",
+                "print(\"Thanks for visiting! Let's build something amazing.\")"
+            ];
+            
+            let currentTextIndex = 0;
+            const terminalElement = document.querySelector('.terminal-code');
+            const cursor = document.querySelector('.blinking-cursor');
+            
+            function typeText(text, element, callback) {
+                let i = 0;
+                element.innerHTML = '';
+                
+                function typeChar() {
+                    if (i < text.length) {
+                        // Add syntax highlighting
+                        let char = text.charAt(i);
+                        let span = document.createElement('span');
+                        
+                        if (char === '(' || char === ')') {
+                            span.className = 'brace';
+                        } else if (i < 5 && text.substring(0, 5) === "print") {
+                            span.className = 'keyword';
+                        } else if (text.substring(i, i+7) === "NeuralN" || text.substring(i, i+5) === "train") {
+                            span.className = 'keyword';
+                        } else if (char === "'" || char === '"') {
+                            // Find the string content
+                            let endQuote = text.indexOf(char, i+1);
+                            if (endQuote !== -1) {
+                                let stringContent = text.substring(i, endQuote+1);
+                                span.innerHTML = stringContent;
+                                span.className = 'string';
+                                element.appendChild(span);
+                                i = endQuote;
+                                setTimeout(typeChar, 50);
+                                return;
+                            }
+                        }
+                        
+                        span.textContent = char;
+                        element.appendChild(span);
+                        i++;
+                        setTimeout(typeChar, 50);
+                    } else {
+                        element.appendChild(cursor);
+                        setTimeout(callback, 2000);
+                    }
+                }
+                
+                typeChar();
+            }
+            
+            function changeTerminalText() {
+                typeText(terminalTexts[currentTextIndex], terminalElement, function() {
+                    currentTextIndex = (currentTextIndex + 1) % terminalTexts.length;
+                    setTimeout(changeTerminalText, 1000);
+                });
+            }
+            
+            // Start the animation
+            setTimeout(changeTerminalText, 1000);
+            
+            // Add hover effect to skill items
+            const skillItems = document.querySelectorAll('.skill-item');
+            skillItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
